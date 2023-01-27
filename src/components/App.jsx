@@ -54,13 +54,17 @@ class App extends Component {
         );
       }
 
+      if (page === 1) {
+        toast.success(`Found ${totalHits} images`);
+      }
+
       if (totalHits < 12 * page) {
         this.setState({
           status: 'idle',
         });
 
         if (page > 1) {
-          toast("You've reached the end of search results");
+          toast.info("You've reached the end of search results");
         }
       } else {
         this.setState({
@@ -93,7 +97,7 @@ class App extends Component {
         )}
         <ToastContainer
           position="top-right"
-          autoClose={3000}
+          autoClose={2000}
           hideProgressBar={false}
           newestOnTop={true}
           closeOnClick
