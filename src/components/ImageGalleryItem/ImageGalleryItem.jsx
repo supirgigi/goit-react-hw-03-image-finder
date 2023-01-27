@@ -5,38 +5,31 @@ import { ListItem, Img } from './ImageGalleryItem.styled';
 
 class ImageGalleryItem extends Component {
   state = {
-    selectedImg: null,
+    showModal: false,
   };
 
-  handleClick = (src, alt) => {
-    const selectedImg = {
-      src,
-      alt,
-    };
-
-    this.setState({ selectedImg });
-  };
-
-  closeModal = () => {
-    this.setState({
-      selectedImg: null,
-    });
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
   };
 
   render() {
     const { webformatURL, largeImageURL, tags } = this.props;
-    const { selectedImg } = this.state;
+    const { showModal } = this.state;
 
     return (
       <ListItem>
         <Img
-          onClick={() => this.handleClick(largeImageURL, tags)}
+          onClick={this.toggleModal}
           src={webformatURL}
           alt={tags}
           loading="lazy"
         />
-        {selectedImg && (
-          <Modal selectedImg={selectedImg} onClose={this.closeModal} />
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
+            <img src={largeImageURL} alt={tags} />
+          </Modal>
         )}
       </ListItem>
     );

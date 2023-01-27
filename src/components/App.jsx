@@ -38,13 +38,12 @@ class App extends Component {
   };
 
   async handleRequest() {
-    this.setState({
-      status: 'pending',
-    });
-
-    const { page, query } = this.state;
-
     try {
+      this.setState({
+        status: 'pending',
+      });
+
+      const { page, query } = this.state;
       const { hits, totalHits } = await fetchImages(query, page);
 
       if (totalHits === 0) {

@@ -20,20 +20,18 @@ class Modal extends Component {
     }
   };
 
-  handleBackdropClick = e => {
+  handleOverlayClick = e => {
     if (e.target === e.currentTarget) {
       this.props.onClose();
     }
   };
 
   render() {
-    const { src, alt } = this.props.selectedImg;
+    const { children } = this.props;
 
     return createPortal(
-      <Overlay onClick={this.handleBackdropClick}>
-        <StyledModal>
-          <img src={src} alt={alt} />
-        </StyledModal>
+      <Overlay onClick={this.handleOverlayClick}>
+        <StyledModal>{children}</StyledModal>
       </Overlay>,
       modalRoot
     );
@@ -41,10 +39,8 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  selectedImg: PropTypes.shape({
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string.isRequired,
-  }).isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
 };
 
 export default Modal;
