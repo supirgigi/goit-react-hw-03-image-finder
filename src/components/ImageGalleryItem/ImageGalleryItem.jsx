@@ -1,11 +1,17 @@
-import PropTypes from 'prop-types';
 import { Component } from 'react';
-import { ListItem, Img } from './ImageGalleryItem.styled';
+import PropTypes from 'prop-types';
 import Modal from 'components/Modal';
+import { ListItem, Img } from './ImageGalleryItem.styled';
 
 class ImageGalleryItem extends Component {
   state = {
     selectedImg: null,
+  };
+
+  static propTypes = {
+    webformatURL: PropTypes.string.isRequired,
+    largeImageURL: PropTypes.string.isRequired,
+    tags: PropTypes.string.isRequired,
   };
 
   handleClick = (src, alt) => {
@@ -42,11 +48,5 @@ class ImageGalleryItem extends Component {
     );
   }
 }
-
-ImageGalleryItem.propTypes = {
-  webformatURL: PropTypes.string.isRequired,
-  largeImageURL: PropTypes.string.isRequired,
-  tags: PropTypes.string.isRequired,
-};
 
 export default ImageGalleryItem;
