@@ -46,7 +46,7 @@ export const Button = styled.button`
   }
 `;
 
-export const Label = styled.span`
+export const ButtonLabel = styled.span`
   position: absolute;
   width: 1px;
   height: 1px;

@@ -2,18 +2,23 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { toast } from 'react-toastify';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { Header, Form, Button, Label, Input } from './Searchbar.styled';
+import { Header, Form, Button, ButtonLabel, Input } from './Searchbar.styled';
 
 class Searchbar extends Component {
-  static propTypes = {
-    onSubmit: PropTypes.func.isRequired,
+  state = {
+    query: '',
+  };
+
+  handleChange = ({ target }) => {
+    const { name, value } = target;
+    this.setState({ [name]: value });
   };
 
   handleSubmit = e => {
     e.preventDefault();
 
     const { onSubmit } = this.props;
-    const query = e.target.elements.query.value;
+    const { query } = this.state;
 
     if (query.toLowerCase().trim() === '') {
       return toast.error(
@@ -22,29 +27,42 @@ class Searchbar extends Component {
     }
 
     onSubmit(query);
-    e.target.reset();
+    this.reset();
   };
 
+  reset() {
+    this.setState({
+      query: '',
+    });
+  }
+
   render() {
+    const { query } = this.state;
+
     return (
       <Header>
         <Form onSubmit={this.handleSubmit}>
           <Button type="submit">
             <AiOutlineSearch size={24} />
-            <Label>Search</Label>
+            <ButtonLabel>Search</ButtonLabel>
           </Button>
 
           <Input
             type="text"
             autocomplete="off"
-            name="query"
+            value={query}
             autoFocus
             placeholder="Search images and photos"
+            onChange={this.handleChange}
           />
         </Form>
       </Header>
     );
   }
 }
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default Searchbar;

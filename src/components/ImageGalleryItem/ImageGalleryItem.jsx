@@ -8,12 +8,6 @@ class ImageGalleryItem extends Component {
     selectedImg: null,
   };
 
-  static propTypes = {
-    webformatURL: PropTypes.string.isRequired,
-    largeImageURL: PropTypes.string.isRequired,
-    tags: PropTypes.string.isRequired,
-  };
-
   handleClick = (src, alt) => {
     const selectedImg = {
       src,
@@ -48,5 +42,11 @@ class ImageGalleryItem extends Component {
     );
   }
 }
+
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+};
 
 export default ImageGalleryItem;
